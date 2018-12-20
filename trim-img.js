@@ -1,5 +1,4 @@
 function trimImg(img) {
-  console.log(img);
   let canvas = document.createElement('canvas');
   let cw = canvas.width = img.naturalWidth;
   let ch = canvas.height = img.naturalHeight;
@@ -15,13 +14,6 @@ function trimImg(img) {
   function findAlphaByPos(row, col) {
     return alphaData[findIndexByPos(row, col)];
   }
-
-  // function findPosByIndex(index) {
-  //   return {
-  //     row: (index / cw) | 0,
-  //     col: index % cw
-  //   };
-  // }
 
   // 一行一行由上到下掃描 找出第一個 alpha > 0 的位置
   function findTopPos() {
@@ -75,26 +67,6 @@ function trimImg(img) {
   let bottomPos = findBottomPos();
   let leftPos = findLeftPos();
   let rightPos = findRightPos();
-
-  // ctx.drawImage(img, 0, 0, cw, ch);
-
-  // ctx.beginPath();
-  // ctx.arc(topPos.col, topPos.row, 2, 0, Math.PI * 2, false);
-  // ctx.fill();
-
-  // ctx.beginPath();
-  // ctx.arc(bottomPos.col, bottomPos.row, 2, 0, Math.PI * 2, false);
-  // ctx.fill();
-
-  // ctx.beginPath();
-  // ctx.arc(leftPos.col, leftPos.row, 2, 0, Math.PI * 2, false);
-  // ctx.fill();
-
-  // ctx.beginPath();
-  // ctx.arc(rightPos.col, rightPos.row, 2, 0, Math.PI * 2, false);
-  // ctx.fill();
-
-  // ctx.strokeRect(leftPos.col, topPos.row, rightPos.col - leftPos.col, bottomPos.row - topPos.row);
 
   let trimCanvas = document.createElement('canvas');
   let trimCtx = trimCanvas.getContext('2d');
