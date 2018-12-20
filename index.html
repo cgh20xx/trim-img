@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>trim img</title>
+  <style>
+    body {
+      background-color: #cfc;
+    }
+    .outline {
+      outline: 1px solid red
+    }
+  </style>
+</head>
+<body>
+  <h2>上傳圖片自動修剪空白區域</h2>
+  <input id="btnUpload" type="file" value="Upload Image" accept="image/jpeg, image/png">
+  <br>
+  <img id="targetImg" src="" alt="" class="img">
+  <br>
+  <img id="resultImg" alt="" class="img">
+  <br>
+  <script src="trim-img.js"></script>
+  <script>
+    ;(function(window, document) {
+      let targetImg = document.querySelector('#targetImg');
+      let resultImg = document.querySelector('#resultImg');
+      let btnUpload = document.getElementById('btnUpload');
+
+      function loadFile(file) {
+        return new Promise((resolve, reject) => {
+          let reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file)
+        });
+      }
+
+      function targetLoadHandler(e) {
+        resultImg.src = trimImg(this).toDataURL();
+        targetImg.classList.add('outline');
+        resultImg.classList.add('outline');
+      }
+
+      async function changeHandler(e) {
+        try {
+          let src = await loadFile(e.target.files.item(0));
+          targetImg.addEventListener('load', targetLoadHandler);
+          targetImg.src = src;
+        } catch (e) {
+          throw e;
+        }
+      }
+
+      btnUpload.addEventListener('change', changeHandler);
+
+    })(window, document);
+  </script>
+</body>
+</html>
